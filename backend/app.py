@@ -14,10 +14,19 @@ import secrets
 import smtplib
 from email.mime.text import MIMEText
 from decouple import config
+from flask_migrate import Migrate
+import warnings
+from sqlalchemy.exc import SAWarning
+
+warnings.filterwarnings('ignore', category=SAWarning)
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 db.init_app(app)
 CORS(app)
 
