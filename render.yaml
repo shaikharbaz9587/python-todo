@@ -2,7 +2,7 @@ databases:
   - name: todo-db
     databaseName: todo_db
     user: postgres
-    password: qeWFLxG2rH2E1clVWZaqcpADxOVTR4Xp  # Replace with a secure password or use Render's generated one
+    password: Arbaz123  
     plan: free
 
 services:
