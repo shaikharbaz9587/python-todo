@@ -19,7 +19,8 @@ from decouple import config
 app = Flask(__name__)
 app.config.from_object(Config)
 db.init_app(app)
-CORS(app)
+CORS(app, origins=["https://python-todo-frontend.onrender.com"])
+
 
 def token_required(f):
     @wraps(f)
