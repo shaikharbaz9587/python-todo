@@ -37,7 +37,7 @@ services:
       mountPath: /code
       sizeGB: 1
 
-  - type: static-site
+  - type: web
     name: todo-frontend
     env: static
     plan: free
