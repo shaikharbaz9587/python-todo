@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 function TodoList({ todos, fetchTodos }) {
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
 
   const handleToggle = async (id, completed) => {
-    await fetch(`http://localhost:5000/api/todos/${id}`, {
+    await fetch(`${API_BASE_URL}/api/todos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token')}` },
       body: JSON.stringify({ completed: !completed }),
@@ -14,7 +14,7 @@ function TodoList({ todos, fetchTodos }) {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/api/todos/${id}`, {
+    await fetch(`${API_BASE_URL}/api/todos/${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });

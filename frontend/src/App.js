@@ -5,6 +5,8 @@ import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import Login from './components/Login';
 import Register from './components/Register';
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -15,7 +17,7 @@ function App() {
     const token = localStorage.getItem('token');
     console.log('Fetching todos with token:', token);  // Debug log
     try {
-      const response = await fetch('https://python-todo-fk6h.onrender.com/api/todos', {
+      const response = await fetch(`${API_BASE_URL}/api/todos`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       if (!response.ok) throw new Error('Failed to fetch todos');
@@ -49,11 +51,11 @@ function App() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'https://python-todo-fk6h.onrender.com/api/google/login';
+    window.location.href = `${API_BASE_URL}/api/google/login`;
   };
 
   const handleLogout = async () => {
-    await fetch('https://python-todo-fk6h.onrender.com/api/logout', {
+    await fetch(`${API_BASE_URL}/api/logout`, {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });

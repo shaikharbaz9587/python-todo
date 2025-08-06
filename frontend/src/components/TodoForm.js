@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 function TodoForm({ fetchTodos }) {
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
@@ -11,7 +11,7 @@ function TodoForm({ fetchTodos }) {
     const token = localStorage.getItem('token');
     console.log('Creating todo with token:', token);  // Debug log
     try {
-      const response = await fetch('http://localhost:5000/api/todos', {
+      const response = await fetch(`${API_BASE_URL}/api/todos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
