@@ -1,7 +1,7 @@
 databases:
   - name: todo-db
     databaseName: todo_db
-    user: postgres
+    user: todouser  # must be lowercase alphanumeric
     plan: free
 
 services:
@@ -27,14 +27,6 @@ services:
       - key: EMAIL_PASSWORD
         value: hmmm sgmq aitc ahkj
     autoDeploy: true
-    routes:
-      - type: http
-        source: /api/*
-        destination: todo-backend.onrender.com/api/*
-    disk:
-      name: todo-backend-disk
-      mountPath: /code
-      sizeGB: 1
 
   - type: web
     name: todo-frontend
@@ -46,7 +38,7 @@ services:
     routes:
       - type: redirect
         source: /api/*
-        destination: /  # Redirect API calls to backend if needed
+        destination: https://todo-backend.onrender.com/api/*
       - type: rewrite
         source: /*
         destination: /index.html
