@@ -15,7 +15,7 @@ function App() {
     const token = localStorage.getItem('token');
     console.log('Fetching todos with token:', token);  // Debug log
     try {
-      const response = await fetch('http://localhost:5000/api/todos', {
+      const response = await fetch('https://python-todo-fk6h.onrender.com/api/todos', {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       if (!response.ok) throw new Error('Failed to fetch todos');
@@ -49,11 +49,11 @@ function App() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/google/login';
+    window.location.href = 'https://python-todo-fk6h.onrender.com/api/google/login';
   };
 
   const handleLogout = async () => {
-    await fetch('http://localhost:5000/api/logout', {
+    await fetch('https://python-todo-fk6h.onrender.com/api/logout', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
