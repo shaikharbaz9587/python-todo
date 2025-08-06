@@ -1,0 +1,49 @@
+databases:
+  - name: todo-db
+    databaseName: todo_db
+    user: postgres
+    password: Arbaaz123  # Replace with a secure password or use Render's generated one
+    plan: free  # Free tier (512MB RAM, 90-day limit)
+
+services:
+  - type: web
+    name: todo-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:8080 backend.app:app
+    envVars:
+      - key: JWT_SECRET_KEY
+        value: uZvv0UQzm-5J5LWvkaBvWqJ_y7zO9Z5FjCdUy8p2ui4VxPmRr4YsIrh2S7eysv181EgIotds7ThgTsjViogaPg
+      - key: GOOGLE_CLIENT_ID
+        value: 82422294118-dof119o4qe8dd8vamea9kjpmi964djhn.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        value: 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
+      - key: EMAIL_USER
+        value: shaikharbaaz9587@gmail.com
+      - key: EMAIL_PASSWORD
+        value: hmmm sgmq aitc ahkj
+    autoDeploy: true
+    routes:
+      - type: http
+        source: /api/*
+        destination: todo-backend.onrender.com/api/*
+    disk:
+      name: todo-backend-disk
+      mountPath: /code
+      sizeGB: 1
+
+  - type: static-site
+    name: todo-frontend
+    env: static
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    autoDeploy: true
+    routes:
+      - type: redirect
+        source: /api/*
+        destination: /  # Redirect API calls to backend if needed
+      - type: rewrite
+        source: /*
+        destination: /index.html
