@@ -1,6 +1,7 @@
 import os
 from decouple import config
-
+from dotenv import load_dotenv
+load_dotenv()
 class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace(
         'postgres://', 'postgresql://') or config('DATABASE_URL').replace(
